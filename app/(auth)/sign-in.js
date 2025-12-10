@@ -11,7 +11,7 @@ import {
 export default function SignIn() {
   const { user } = useAuth();
   const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -21,47 +21,47 @@ export default function SignIn() {
   const onSignIn = async () => {
     setError("");
     try {
-      await signInWithEmailAndPassword(auth, email.trim(), pw);
-    } catch (e) {
-      setError(e.message);
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
   const onSignUp = async () => {
     setError("");
     try {
-      await createUserWithEmailAndPassword(auth, email.trim(), pw);
-    } catch (e) {
-      setError(e.message);
+      await createUserWithEmailAndPassword(auth, email.trim(), password);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
   return (
-    <View style={s.container}>
-      <Text style={s.title}>Welcome</Text>
+    <View style={style.container}>
+      <Text style={style.title}>Welcome</Text>
       <TextInput
-        style={s.input}
+        style={style.input}
         placeholder="email"
         autoCapitalize="none"
         value={email}
         onChangeText={setEmail}
       />
       <TextInput
-        style={s.input}
+        style={style.input}
         placeholder="password"
         secureTextEntry
-        value={pw}
-        onChangeText={setPw}
+        value={password}
+        onChangeText={setPassword}
       />
-      {!!error && <Text style={s.error}>{error}</Text>}
-      <View style={{ flexDirection: "row", gap: 12, marginTop: 8 }}>
+      {!!error && <Text style={style.error}>{error}</Text>}
+      <View>
         <Button title="Sign In" onPress={onSignIn} />
         <Button title="Create Account" onPress={onSignUp} />
       </View>
     </View>
   );
 }
-const s = StyleSheet.create({
+const style = StyleSheet.create({
   container: { flex: 1, padding: 16, paddingTop: 80 },
   title: { fontSize: 28, fontWeight: "700", marginBottom: 12 },
   input: {
